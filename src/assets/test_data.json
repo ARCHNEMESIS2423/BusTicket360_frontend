@@ -1,0 +1,25 @@
+{
+"test_data":{
+    "regions":[
+        "ARUSHA",
+        "KIGOMA",
+        "IRINGA",
+        "KIGOMA",
+        "RUKWA",
+        "DAR ES SALAAM"
+    ],
+    "Available_Routes":{
+        "DAR ES SALAAM TO KIGOMA":{
+            "price":12000,
+            "distance":30,
+            "scheduled_at":"2026-05-19T10:00:00.000Z"
+        },
+        "DAR ES SALAAM TO IRINGA":{
+            "price":20000,
+            "distance":40,
+            "scheduled_at":"2026-05-19T10:00:00.000Z"
+        }
+
+    }
+}
+}
