@@ -19,6 +19,12 @@ let [errorArray,setErrorArray] = useState([])
           if(!is_filled){
             let currentErrors = []
 
+            if(!fullName && !phoneNumber){
+                currentErrors.push(<p className="font-bold">Please fill in the form</p>)
+                setErrorArray(currentErrors)
+                return
+            } 
+
             !fullName && currentErrors.push(<p className="font-bold">Please fill in your name</p>)
 
             !phoneNumber && currentErrors.push(<p className="font-bold">Please fill in your phone number</p>)
