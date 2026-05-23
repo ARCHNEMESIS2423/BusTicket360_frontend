@@ -12,7 +12,11 @@ function App() {
   return (
     <>
       <Header/>
-      <SearchBus setSearchedBusInfo={setSearchInfo} displayRoutesFound={setShowMe} />
+      
+      <SearchBus 
+      setSearchedBusInfo={setSearchInfo} 
+      displayRoutesFound={setShowMe} 
+      />
 
      { 
      showMe && 
