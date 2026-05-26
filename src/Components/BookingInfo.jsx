@@ -1,10 +1,14 @@
 import { useState } from "react";
+import BookNow from "./BookNow"
 
 
 function BookingInfo({goBack}){
 
 let [isError,setIsError] = useState(false)
 let [errorArray,setErrorArray] = useState([])
+let [seeReceipt,setSeeReceipt] = useState(false)
+let [travellerInfo,setTravellersInfo] = useState({})
+
 
         function handleTravelerInfo(e){
             
@@ -16,6 +20,7 @@ let [errorArray,setErrorArray] = useState([])
 
 
           is_filled ? setIsError(false):setIsError(true)
+
           if(!is_filled){
             let currentErrors = []
 
@@ -30,13 +35,22 @@ let [errorArray,setErrorArray] = useState([])
             !phoneNumber && currentErrors.push(<p className="font-bold">Please fill in your phone number</p>)
 
             setErrorArray(currentErrors)
+            return
           }
+
+         is_filled && setSeeReceipt(true)
+         is_filled && setTravellersInfo({
+            "name":fullName,
+            "PhoneNo":phoneNumber
+         })
+
 
         }
 
 
 
         return(
+            !seeReceipt?
             <>
             
             <p className="mb-5" onClick={()=>goBack(false)}>
@@ -113,6 +127,8 @@ let [errorArray,setErrorArray] = useState([])
              </div>
 
             </>
+            : 
+            <BookNow getBack={setSeeReceipt} User={travellerInfo} />
         )
 
 }

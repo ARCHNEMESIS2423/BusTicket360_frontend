@@ -1,15 +1,16 @@
-import { useState } from "react"
+import { useState, useContext } from "react"
+import { AppContext } from "../App"
 import Select from "react-select"
 
-function SearchBus({setSearchedBusInfo, displayRoutesFound}){
-    
+function SearchBus(){
+    const {setSearchInfo,setShowMe} = useContext(AppContext)
     const [regions] = useState({
         A1:'Mbeya',
         A2:'Iringa',
         A3:'Njombe',
         A4:'Kigoma'
     })
-
+    
     let [pickupRegion, setPickupRegion] = useState(null)
     let [destRegion, setDestRegion] = useState(null)
     let [alert, setAlert] = useState(false)
@@ -49,11 +50,17 @@ function SearchBus({setSearchedBusInfo, displayRoutesFound}){
 
         if(dateVal && goingVal && startVal){
             setAlert(false)
-            setSearchedBusInfo({ start_point: startVal, going_to: goingVal, day_of_departure: dateVal })
-            displayRoutesFound(true)
+            setSearchInfo({ start_point: startVal, going_to: goingVal, day_of_departure: dateVal })
+            setShowMe(true)
+
+            //clear form if inputs are well
+            setPickupRegion('')
+            setDestRegion('')
+            e.target.day_of_departure.value = ""
+
         } else {
             setAlert(true)
-            displayRoutesFound(false)
+            setShowMe(false)
         }
 
         const currentErrors = []
@@ -144,8 +151,9 @@ function SearchBus({setSearchedBusInfo, displayRoutesFound}){
                 <button className="bg-[#0B778D] hover:bg-[#055262] active:bg-[#000D11] text-white w-fit p-2 rounded self-center cursor-pointer">
                     SEARCH
                 </button>
-
+                
             </form>
+            
         </div>
     )
 }

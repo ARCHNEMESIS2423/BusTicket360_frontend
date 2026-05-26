@@ -1,28 +1,33 @@
 import RoutesFound from "./Components/RoutesFound"
 import SearchBus from "./Components/SearchBus"
 import Header from "./Components/Header"
-import SittingArrangement from "./Components/SittingArrangement"
-import { useState } from "react"
+import Payment from "./Components/Payment"
+import FinishPayment from "./Components/FinishPayment"
+import {BrowserRouter,Route,Routes} from 'react-router-dom'
+import { useState,useContext,createContext } from "react"
+export const AppContext = createContext()
 
+
+/*
+    Time to use context 
+    Variables needed to be propped way down
+    - Start to Destinatiom
+    - Date
+    - BusInfo = {
+      platenumber,
+      Departuretime,
+      Fare
+      }
+     -Travellers name and 
+     -Travellers conatct number2 
+
+*/
 
 function App() {
-  let [searchInfo,setSearchInfo] = useState()
+  let [searchedInfo,setSearchInfo] = useState({})
   let [showMe,setShowMe] = useState(false)
-
-  return (
-    <>
-      <Header/>
-      
-      <SearchBus 
-      setSearchedBusInfo={setSearchInfo} 
-      displayRoutesFound={setShowMe} 
-      />
-
-     { 
-     showMe && 
-
-      <RoutesFound 
-      busFound={[
+  let [showFinishPayment,setFinishPayment] = useState(false)
+  const fakeData = [
         {'bus_number':'TO076PTAI',
            'time':'09:00 AM',
            'price':'19000'
@@ -31,12 +36,25 @@ function App() {
            'time':'06:00 PM',
            'price':'14000'
         }
-      ]} 
-      searchedInfo={searchInfo}  
-      />
-    }
+      ]
+
+  return (
+    <>
+    <BrowserRouter>
+        <Header/>
+
+      <AppContext.Provider value={{setSearchInfo,searchedInfo,setShowMe,showFinishPayment,setFinishPayment}}>
+
+          {showMe && <RoutesFound busFound={fakeData}/>}
+          {(showFinishPayment && !showMe) ? <FinishPayment/>:<SearchBus/>}
+
+      </AppContext.Provider>
+    </BrowserRouter>
+    
+    
     </>
   )
 }
+
 
 export default App

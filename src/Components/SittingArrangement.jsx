@@ -1,12 +1,15 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import BookingInfo from "./BookingInfo"
+import { SittingArrangementContx } from "./RoutesFound.jsx"
 
-function SittingArrangement({BusNo,show,toggle}){
+function SittingArrangement(){
 
  let [seatChosen,setSeatChosen] = useState()
- let [userChoices,setUserChoices] = useState([])
- let [userIdForm,seUserIdForm] = useState(false)
+ let {userChoices,setUserChoices} = useContext(SittingArrangementContx)
+ let [userIdForm,setUserIdForm] = useState(false)
  let [userCannotProceed,setUserCannotProceed] = useState(true)
+
+ const {displayForm,busInfo,setDisplayForm} = useContext(SittingArrangementContx)
 
  const seatsTaken = ['A1','A7','A19','A10']
  const sitOrder = {
@@ -17,13 +20,13 @@ function SittingArrangement({BusNo,show,toggle}){
     const total_seats = sitOrder.rows * sitOrder.cols
 
       useEffect(()=>{
-         if(!show){
+         if(!displayForm){
             setSeatChosen('')
             setUserChoices({})
-            seUserIdForm(false)
+            setUserIdForm(false)
             setUserCannotProceed(true)
          } 
-      },[show,BusNo])
+      },[displayForm,busInfo.BusPlateNumber])
 
    const columnArrang = ()=> {
       let string = '';
@@ -73,8 +76,8 @@ function SittingArrangement({BusNo,show,toggle}){
       */
 
 
-        setUserChoices({'bus_plateNumber':BusNo,'chosenSeat':seatChosen,'fare':10000})
-        seUserIdForm(true)
+        setUserChoices({'bus_plateNumber':busInfo.BusPlateNumber,'chosenSeat':seatChosen,'fare':busInfo.BusPlateNumber})
+        setUserIdForm(true)
 
    }
 
@@ -82,11 +85,11 @@ function SittingArrangement({BusNo,show,toggle}){
    
     return (
 
-            <div className={`${!show&&'hidden'} shadow-lg shadow-[c2c9cc] rounded w-[98%] h-[90%] p-3 mb-20  top-[50%] bg-[#edeff0] fixed left-1/2 -translate-x-1/2 -translate-y-1/2 z-1 flex flex-col overflow-y-auto`}>
+            <div className={`${!displayForm&&'hidden'} shadow-lg shadow-[c2c9cc] rounded w-[98%] h-[90%] p-3 mb-20  top-[50%] bg-[#edeff0] fixed left-1/2 -translate-x-1/2 -translate-y-1/2 z-1 flex flex-col overflow-y-auto`}>
 
                <div className="relative">
 
-                  <p className="text-right mb-2" onClick={()=>{toggle(false)}}>
+                  <p className="text-right mb-2" onClick={()=>{setDisplayForm(false)}}>
 
                      <span className="sticky right-2 bg-[#19c3e6] p-2 rounded hover:bg-[#8be5fe] active:bg-[#0b778d] select-none cursor-pointer">
                         ❌
@@ -101,7 +104,7 @@ function SittingArrangement({BusNo,show,toggle}){
                <div className="flex flex-row justify-between mt-10">
                      
                      <p>Choose Seat <br/>total_seats: {total_seats}</p>
-                     {<p>BusPlateNo : {sitOrder.plate_no} <br/> BUS {BusNo}</p>}
+                     {<p>BusPlateNo : {sitOrder.plate_no} <br/> BUS {busInfo.BusPlateNumber}</p>}
                   </div>
                   <hr className="opacity-20"/><br/>
                   
@@ -145,7 +148,7 @@ function SittingArrangement({BusNo,show,toggle}){
                </>
                           :///get customer name
                <BookingInfo
-               goBack={seUserIdForm}
+               goBack={setUserIdForm}
                />
             }
            </div>  
