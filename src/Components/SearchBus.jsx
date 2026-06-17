@@ -1,9 +1,12 @@
 import { useState, useContext } from "react"
 import { AppContext } from "../App"
+import SearchTicket from "./SearchTicket"
 import Select from "react-select"
+
 
 function SearchBus(){
     const {setSearchInfo,setShowMe} = useContext(AppContext)
+    let [alreadyHasTicket,setAlreadyHasTicket] = useState(false)
     const [regions] = useState({
         A1:'Mbeya',
         A2:'Iringa',
@@ -96,7 +99,10 @@ function SearchBus(){
     }
 
     return (
-        <div className="p-5 bg-[#EDEFF0] rounded w-[90%] ml-auto mr-auto font-bold mt-4 md:w-fit shadow-lg shadow-[#9BA3A8]">
+        alreadyHasTicket ?
+             <SearchTicket goBack={setAlreadyHasTicket}/>
+        :
+        <div className="p-5 bg-[#EDEFF0] rounded w-[90%] ml-auto mr-auto font-bold mt-4 shadow-lg shadow-[#9BA3A8]">
 
             {alert &&
             <>
@@ -107,7 +113,7 @@ function SearchBus(){
             </>
             }
 
-            <form onSubmit={handleSearchForm} className="flex gap-2 flex-col md:flex-row justify-center">
+            <form onSubmit={handleSearchForm} className="flex gap-2 flex-col justify-center">
 
                 <div className="flex flex-col p-1">
                     <label className="text-black">FROM</label>
@@ -147,7 +153,7 @@ function SearchBus(){
                         min={today}
                     />
                 </div>
-
+            <p className="underline font-bold text-blue-800 cursor-pointer" onClick={()=>setAlreadyHasTicket(true)}>Already have a ticket</p>
                 <button className="bg-[#0B778D] hover:bg-[#055262] active:bg-[#000D11] text-white w-fit p-2 rounded self-center cursor-pointer">
                     SEARCH
                 </button>
