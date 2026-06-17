@@ -3,7 +3,6 @@ import SearchBus from "./Components/SearchBus"
 import Header from "./Components/Header"
 import Payment from "./Components/Payment"
 import FinishPayment from "./Components/FinishPayment"
-import {BrowserRouter,Route,Routes} from 'react-router-dom'
 import { useState,useContext,createContext } from "react"
 export const AppContext = createContext()
 
@@ -40,18 +39,13 @@ function App() {
 
   return (
     <>
-    <BrowserRouter>
-        <Header/>
-
+      <Header/>
       <AppContext.Provider value={{setSearchInfo,searchedInfo,setShowMe,showFinishPayment,setFinishPayment}}>
 
           {showMe && <RoutesFound busFound={fakeData}/>}
           {(showFinishPayment && !showMe) ? <FinishPayment/>:<SearchBus/>}
 
-      </AppContext.Provider>
-    </BrowserRouter>
-    
-    
+      </AppContext.Provider>  
     </>
   )
 }
