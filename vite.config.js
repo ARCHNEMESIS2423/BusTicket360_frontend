@@ -5,5 +5,5 @@ import tailwindcss from '@tailwindcss/vite'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(),tailwindcss()],
-  base: "https://github.com/ARCHNEMESIS2423/BusTicket360_frontend",
+  base: "/BusTicket360_frontend/",
 })
