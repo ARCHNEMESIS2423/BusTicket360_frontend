@@ -42,8 +42,9 @@ function App() {
       <Header/>
       <AppContext.Provider value={{setSearchInfo,searchedInfo,setShowMe,showFinishPayment,setFinishPayment}}>
 
+          {(!showFinishPayment && !showMe)&&<SearchBus/>}
           {showMe && <RoutesFound busFound={fakeData}/>}
-          {(showFinishPayment && !showMe) ? <FinishPayment/>:<SearchBus/>}
+          {showFinishPayment && <FinishPayment/>}
 
       </AppContext.Provider>  
     </>

@@ -149,12 +149,12 @@ function SearchBus(){
                         type="date"
                         name="day_of_departure"
                         id="day_of_departure"
-                        className="bg-[#8BE5FE] rounded p-2 text-black font-black"
+                        className="bg-[#8BE5FE] rounded p-2 text-black font-black cursor-pointer hover:offset-1"
                         min={today}
                     />
                 </div>
             <p className="underline font-bold text-blue-800 cursor-pointer" onClick={()=>setAlreadyHasTicket(true)}>Already have a ticket</p>
-                <button className="bg-[#0B778D] hover:bg-[#055262] active:bg-[#000D11] text-white w-fit p-2 rounded self-center cursor-pointer">
+                <button className="bg-[#0B778D] hover:bg-[#055262] active:bg-[#000D11] text-white w-fit p-2 rounded self-center cursor-pointer outline-[#19C3E6] outline-offset-2 hover:outline-3">
                     SEARCH
                 </button>
                 

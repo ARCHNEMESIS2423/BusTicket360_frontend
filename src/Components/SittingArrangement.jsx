@@ -51,7 +51,7 @@ function SittingArrangement(){
          
          //Seat is not taken neither chosen ->unbooked
          if(!isTaken && !(seatNo === seatChosen) ){
-         return 'bg-[#19c3e6] hover:bg-[#119ab7] active:bg-[#0b778d]'
+         return 'bg-[#19c3e6] hover:bg-[#119ab7] active:bg-[#0b778d] cursor-pointer'
          }
 
          //is seat chosen
@@ -103,8 +103,8 @@ function SittingArrangement(){
                <>
                <div className="flex flex-row justify-between mt-10">
                      
-                     <p>Choose Seat <br/>total_seats: {total_seats}</p>
-                     {<p>BusPlateNo : {sitOrder.plate_no} <br/> BUS {busInfo.BusPlateNumber}</p>}
+                     <p>Choose Seat <br/>total Seats: {total_seats}</p>
+                     {<p><b className="font-black">Bus Plate Number</b><br/>{busInfo.BusPlateNumber}</p>}
                   </div>
                   <hr className="opacity-20"/><br/>
                   
@@ -120,7 +120,7 @@ function SittingArrangement(){
                            const seatClassState = checkIfSeatTaken(seatNumber);
 
                            rows.push(  
-                           <p className={`${seatClassState}   p-1 rounded-lg w-10 cursor-pointer font-black m-1`} 
+                           <p className={`${seatClassState}   p-1 rounded-lg w-10 font-black m-1 select-none`} 
                               key={index} 
                               onClick={e=>handleUserChosenSeat(seatNumber)}
                               >
@@ -138,7 +138,7 @@ function SittingArrangement(){
                <div className="flex flex-col gap-5 mt-5">
                   <hr className="opacity-20"/>
 
-                  <button className={`${userCannotProceed?'bg-gray-500':'bg-[#119ab7] active:bg-[#055262] hover:bg-[#0b778d]'}   p-2 w-fit rounded self-center mt-20 font-black text-white`} 
+                  <button className={`${userCannotProceed?'bg-gray-500':'bg-[#119ab7] active:bg-[#055262] hover:bg-[#0b778d] cursor-pointer'}   p-2 w-fit rounded self-center mt-20 font-black text-white select-none`} 
                   onClick={()=>handleNextStep()}
                   disabled={userCannotProceed}   
                   >

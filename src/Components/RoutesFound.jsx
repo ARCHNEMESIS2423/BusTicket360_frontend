@@ -7,7 +7,7 @@ function RoutesFound({busFound}){
      let [userChoices,setUserChoices] = useState({})
      let [displayForm,setDisplayForm] = useState(false);
      let [busInfo,setBusInfo] = useState([]);
-     const {searchedInfo} = useContext(AppContext)
+     const {searchedInfo,setShowMe} = useContext(AppContext)
 
      function callSitArrang(busPlate,price,time){
             if( busPlate && price && time ){
@@ -27,6 +27,8 @@ function RoutesFound({busFound}){
         <br/>
         <div className="max-w-9/10 min-h-50 bg-[#edeff0] ml-auto mr-auto mt-3 rounded mb-5 border-[#033D23]/10  text-black p-1 pb-5 shadow-lg shadow-[#c2c9cc] border-[#055262]/80">
 
+         <button onClick={()=>setShowMe(false)} className="bg-gray-300 hover:bg-gray-200 text-black w-fit p-2 rounded self-center cursor-pointer mb-10 outline-[#0B778D] outline-2">⬅️ BACK</button>
+
             <h2 className="rounded-t p-2 flex flex-row justify-between">
                 <p className="font-black">
                     {searchedInfo.start_point.toUpperCase()} TO {searchedInfo.going_to.toUpperCase()}
@@ -40,7 +42,7 @@ function RoutesFound({busFound}){
 
                    {
                     busFound.map(({bus_number,time,price})=>
-                        <p className="bg-[#19C3E6] p-3 mt-2 w-[98%] ml-auto mr-auto flex flex-row justify-between rounded font-bold" onClick={()=>callSitArrang(bus_number,price,time)}>
+                        <p className="bg-[#19C3E6] p-3 mt-2 w-[98%] ml-auto mr-auto flex flex-row justify-between rounded font-bold cursor-pointer hover:bg-[#06768d] outline-[#19C3E6] outline-offset-2 hover:outline-3 active:bg-[#000D11]" onClick={()=>callSitArrang(bus_number,price,time)}>
                                 <span>{bus_number}</span>
                                 <span>{time}</span>
                                 <span>{price}</span>
