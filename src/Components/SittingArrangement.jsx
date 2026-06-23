@@ -47,15 +47,15 @@ function SittingArrangement(){
          //is seat taken
          const isTaken = seatsTaken.includes(seatNo)
          if(isTaken){
-         return 'bg-gray-500 text-white' }
+         return 'bg-gray-500 text-white cursor-not-allowed' }
          
-         //Seat is not taken neither chosen ->unbooked
+         //Seat is not taken neither chosen ->unbooked ->is available?
          if(!isTaken && !(seatNo === seatChosen) ){
-         return 'bg-[#19c3e6] hover:bg-[#119ab7] active:bg-[#0b778d] cursor-pointer'
+         return 'bg-[#19c3e6] hover:bg-[#119ab7] active:bg-[#0b778d] cursor-pointer '
          }
 
          //is seat chosen
-         return seatNo === seatChosen && "bg-green-500 text-white"
+         return seatNo === seatChosen && "bg-green-500 text-white outline-1"
 
       }
 
@@ -107,6 +107,12 @@ function SittingArrangement(){
                      {<p><b className="font-black">Bus Plate Number</b><br/>{busInfo.BusPlateNumber}</p>}
                   </div>
                   <hr className="opacity-20"/><br/>
+
+                  <div className="flex gap-4 text-xs mb-4 ml-auto mr-auto">
+                     <span className="flex items-center gap-1"><span className="w-4 h-4 rounded bg-green-400 inline-block"/>Selected</span>
+                     <span className="flex items-center gap-1"><span className="w-4 h-4 rounded bg-[#19c3e6] inline-block"/>Available</span>
+                     <span className="flex items-center gap-1"><span className="w-4 h-4 rounded bg-gray-400 inline-block"/>Taken</span>
+                  </div>
                   
 
                <div className={`grid ml-auto mr-auto`} style={{gridTemplateColumns:columnArrang()}}>
@@ -120,13 +126,13 @@ function SittingArrangement(){
                            const seatClassState = checkIfSeatTaken(seatNumber);
 
                            rows.push(  
-                           <p className={`${seatClassState}   p-1 rounded-lg w-10 font-black m-1 select-none`} 
+                           <button className={`${seatClassState}   p-1 rounded-lg w-10 font-black m-1 select-none  outline-offset-1 outline-green-400`} 
                               key={index} 
                               onClick={e=>handleUserChosenSeat(seatNumber)}
                               >
 
                                  {seatNumber}
-                           </p>)
+                           </button>)
                         }
                         return rows;
                      }
@@ -138,9 +144,10 @@ function SittingArrangement(){
                <div className="flex flex-col gap-5 mt-5">
                   <hr className="opacity-20"/>
 
-                  <button className={`${userCannotProceed?'bg-gray-500':'bg-[#119ab7] active:bg-[#055262] hover:bg-[#0b778d] cursor-pointer'}   p-2 w-fit rounded self-center mt-20 font-black text-white select-none`} 
+                  <button className={`${userCannotProceed?'bg-gray-500 cursor-not-allowed':'bg-[#119ab7] active:bg-[#055262] hover:bg-[#0b778d] cursor-pointer'}   p-2 w-fit rounded self-center mt-20 font-black text-white`} 
                   onClick={()=>handleNextStep()}
-                  disabled={userCannotProceed}   
+                  disabled={userCannotProceed}
+                  title={userCannotProceed ? 'Please select a seat to continue' : ''}   
                   >
                      NEXT
                   </button>

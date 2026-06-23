@@ -42,11 +42,21 @@ function RoutesFound({busFound}){
 
                    {
                     busFound.map(({bus_number,time,price})=>
-                        <p className="bg-[#19C3E6] p-3 mt-2 w-[98%] ml-auto mr-auto flex flex-row justify-between rounded font-bold cursor-pointer hover:bg-[#06768d] outline-[#19C3E6] outline-offset-2 hover:outline-3 active:bg-[#000D11]" onClick={()=>callSitArrang(bus_number,price,time)}>
-                                <span>{bus_number}</span>
-                                <span>{time}</span>
+                        <>
+                        <button
+                            className="bg-[#19C3E6] p-3 mt-2 w-[98%] ml-auto mr-auto flex flex-row justify-between items-center rounded font-bold cursor-pointer hover:bg-[#06768d] hover:outline hover:outline-3 hover:outline-offset-2 hover:outline-[#19C3E6] hover:text-white active:bg-[#000D11] active:text-white transition-colors duration-150"
+                            onClick={() => callSitArrang(bus_number, price, time)}
+                            type="button"
+                            >
+                            <span>{bus_number}</span>
+                            <span>{time}</span>
+                            <div className="flex items-center gap-2">
                                 <span>{price}</span>
-                        </p>
+                                <span className="text-lg opacity-80">→</span>
+                            </div>
+                        </button>
+                        <br/>
+                        </>
                     )   
                    }  
         </div>
